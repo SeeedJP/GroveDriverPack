@@ -1,7 +1,7 @@
 // BOARD Seeed Wio 3G
 // GROVE D38 <-> Grove - Ultrasonic Ranger (SKU#101020010)
 
-#include <MjGrove.h>
+#include <GroveDriverPack.h>
 
 #define INTERVAL    (100)
 

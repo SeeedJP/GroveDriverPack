@@ -1,7 +1,7 @@
 // BOARD Seeed Wio LTE M1/NB1(BG96)
 // GROVE I2C <-> Grove - 16x2 LCD (SKU#104020111)
 
-#include <MjGrove.h>
+#include <GroveDriverPack.h>
 
 WioCellular Wio;
 

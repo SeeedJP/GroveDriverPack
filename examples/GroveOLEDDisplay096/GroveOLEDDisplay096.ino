@@ -1,7 +1,7 @@
 // BOARD Seeed Wio 3G
 // GROVE I2C <-> Grove - OLED Display 0.96" (SKU#104030008)
 
-#include <MjGrove.h>
+#include <GroveDriverPack.h>
 
 WioCellular Wio;
 

@@ -1,7 +1,7 @@
 // BOARD Seeed Wio 3G
 // GROVE I2C <-> Grove - I2C Color Sensor V2 (SKU#101020341)
 
-#include <MjGrove.h>
+#include <GroveDriverPack.h>
 
 #define INTERVAL    (100)
 

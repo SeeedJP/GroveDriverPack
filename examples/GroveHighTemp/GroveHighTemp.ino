@@ -1,7 +1,7 @@
 // BOARD Seeed Wio 3G
 // GROVE A6 <-> Grove - High Temperature Sensor (SKU#111020002)
 
-#include <MjGrove.h>
+#include <GroveDriverPack.h>
 
 #define INTERVAL    (100)
 

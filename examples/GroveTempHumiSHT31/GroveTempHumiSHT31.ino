@@ -1,7 +1,7 @@
 // BOARD Seeed Wio LTE M1/NB1(BG96)
 // GROVE I2C <-> Grove - Temperature&Humidity Sensor (SHT31) (SKU#101020212)
 
-#include <MjGrove.h>
+#include <GroveDriverPack.h>
 
 #define INTERVAL    (2000)
 

@@ -1,7 +1,7 @@
 // BOARD Seeed Wio 3G
 // GROVE I2C <-> Grove - Temp&Humi&Barometer Sensor (BME280) (SKU#101020193)
 
-#include <MjGrove.h>
+#include <GroveDriverPack.h>
 
 #define INTERVAL    (2000)
 

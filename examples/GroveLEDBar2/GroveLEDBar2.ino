@@ -1,7 +1,7 @@
 // BOARD Seeed Wio 3G
 // GROVE D38 <-> Grove LED Bar v2.0 (SKU#104020006)
 
-#include <MjGrove.h>
+#include <GroveDriverPack.h>
 
 GroveBoard Board;
 GroveLEDBar2 Bar(&Board.D38);

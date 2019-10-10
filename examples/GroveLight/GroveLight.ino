@@ -1,7 +1,7 @@
 // BOARD Seeed Wio 3G
 // GROVE A6 <-> Grove - Light Sensor v1.2 (SKU#101020132)
 
-#include <MjGrove.h>
+#include <GroveDriverPack.h>
 
 #define INTERVAL    (100)
 

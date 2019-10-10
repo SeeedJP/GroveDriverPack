@@ -1,7 +1,7 @@
 // BOARD Seeed Wio 3G
 // GROVE A6 <-> Grove - Oxygen Sensor(ME2-O2-„U20) (SKU#101020002)
 
-#include <MjGrove.h>
+#include <GroveDriverPack.h>
 
 #define INTERVAL    (100)
 

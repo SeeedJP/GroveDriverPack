@@ -1,7 +1,7 @@
 // BOARD Seeed Wio 3G
 // GROVE UART <-> Grove - GPS (SKU#113020003)
 
-#include <MjGrove.h>
+#include <GroveDriverPack.h>
 
 WioCellular Wio;
 

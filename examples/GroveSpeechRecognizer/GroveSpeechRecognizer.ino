@@ -1,7 +1,7 @@
 // BOARD Seeed Wio 3G
 // GROVE UART <-> Grove - Speech Recognizer (SKU#101020232)
 
-#include <MjGrove.h>
+#include <GroveDriverPack.h>
 
 WioCellular Wio;
 

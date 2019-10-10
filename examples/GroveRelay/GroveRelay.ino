@@ -1,7 +1,7 @@
 // BOARD Seeed Wio 3G
 // GROVE D38 <-> Grove - Relay (SKU#103020005)
 
-#include <MjGrove.h>
+#include <GroveDriverPack.h>
 
 #define RELAY_ON_TIME   (1000)
 #define RELAY_OFF_TIME  (3000)

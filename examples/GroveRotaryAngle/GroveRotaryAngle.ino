@@ -1,7 +1,7 @@
 // BOARD Seeed Wio 3G
 // GROVE A6 <-> Grove - Rotary Angle Sensor (SKU#101020017)
 
-#include <MjGrove.h>
+#include <GroveDriverPack.h>
 
 #define INTERVAL    (100)
 

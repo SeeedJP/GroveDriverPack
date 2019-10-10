@@ -1,7 +1,7 @@
 // BOARD Seeed Wio 3G
 // GROVE D38 <-> Grove - Circular LED (SKU#104030013)
 
-#include <MjGrove.h>
+#include <GroveDriverPack.h>
 
 GroveBoard Board;
 GroveCircularLED Circular(&Board.D38);

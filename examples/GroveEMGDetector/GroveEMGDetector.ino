@@ -1,7 +1,7 @@
 // BOARD Seeed Wio 3G
 // GROVE A6 <-> Grove - EMG Detector (SKU#101020058)
 
-#include <MjGrove.h>
+#include <GroveDriverPack.h>
 
 #define INTERVAL    (100)
 
