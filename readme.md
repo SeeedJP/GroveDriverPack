@@ -54,17 +54,17 @@ Groveƒ‚ƒWƒ…[ƒ‹‚ÌƒNƒ‰ƒX‚ÆAGrove‘Î‰ƒ{[ƒh‚ÌƒNƒ‰ƒX‚ª—pˆÓ‚³‚ê‚Ä‚¨‚èA‚±‚Ì2‚Â‚ÌƒNƒ
 |<img src="https://statics3.seeedstudio.com/images/product/High%20Temperature%20Sensor.jpg" width="100">|GroveHighTemp|111020002|[Grove - High Temperature Sensor](http://wiki.seeedstudio.com/Grove-High_Temperature_Sensor/)||
 |<img src="https://statics3.seeedstudio.com/seeed/img/2016-11/txvkIZ9IGno10T8UYi8KTvPS.jpg" width="100">|GroveGPS|113020003|[Grove - GPS](http://wiki.seeedstudio.com/Grove-GPS/)||
 
-### Grove•—ƒ‚ƒWƒ…[ƒ‹
-
-|Pic|Class|Name|Note|
-|:--|:--|:--|:--|
-|![1](img/1.png)|OmronBaro2SMPB02E|[â‘Îˆ³ƒZƒ“ƒT•]‰¿ƒ‚ƒWƒ…[ƒ‹iGroveƒRƒlƒNƒ^•tj](https://www.omron.co.jp/ecb/product-detail?partId=45066)||
-
 ### Šg’£Šî”Â
 
 |Pic|Class|SKU|Name|Note|
 |:--|:--|:--|:--|:--|
 |<img src="https://www.seeedstudio.site/media/catalog/product/cache/ef3164306500b1080e8560b2e8b5cc0f/p/r/preview_4_2.png" width="100">|WioExtRTC|103100082|[Wio Extension - RTC](http://wiki.seeedstudio.com/Wio-Extension-RTC/)||
+
+### GroveƒRƒlƒNƒ^•t‚«ƒ‚ƒWƒ…[ƒ‹
+
+|Pic|Class|Name|Note|
+|:--|:--|:--|:--|
+|![1](img/1.png)|OmronBaro2SMPB02E|[â‘Îˆ³ƒZƒ“ƒT•]‰¿ƒ‚ƒWƒ…[ƒ‹iGroveƒRƒlƒNƒ^•tj](https://www.omron.co.jp/ecb/product-detail?partId=45066)||
 
 ## ƒTƒ“ƒvƒ‹ƒR[ƒh
 
