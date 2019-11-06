@@ -10,9 +10,9 @@ public:
 		EnableImplement();
 	}
 
-	void Write(int slaveAddress, const uint8_t* data, int dataSize)
+	bool Write(int slaveAddress, const uint8_t* data, int dataSize)
 	{
-		WriteImplement(slaveAddress, data, dataSize);
+		return WriteImplement(slaveAddress, data, dataSize);
 	}
 
 	int Read(int slaveAddress, uint8_t* data, int dataSize)
@@ -22,7 +22,7 @@ public:
 
 protected:
 	virtual void EnableImplement() = 0;
-	virtual void WriteImplement(int slaveAddress, const uint8_t* data, int dataSize) = 0;
+	virtual bool WriteImplement(int slaveAddress, const uint8_t* data, int dataSize) = 0;
 	virtual int ReadImplement(int slaveAddress, uint8_t* data, int dataSize) = 0;
 
 };

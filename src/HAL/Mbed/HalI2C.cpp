@@ -6,14 +6,15 @@ void HalI2C::EnableImplement()
 {
 }
 
-void HalI2C::WriteImplement(int slaveAddress, const uint8_t* data, int dataSize)
+bool HalI2C::WriteImplement(int slaveAddress, const uint8_t* data, int dataSize)
 {
-	_I2C->write(slaveAddress << 1, (const char*)data, dataSize);
+	if (_I2C->write(slaveAddress << 1, (const char*)data, dataSize) != 0) return false;
+	return true;
 }
 
 int HalI2C::ReadImplement(int slaveAddress, uint8_t* data, int dataSize)
 {
-	_I2C->read(slaveAddress << 1, (char*)data, dataSize);
+	if (_I2C->read(slaveAddress << 1, (char*)data, dataSize) != 0) return 0;
 	return dataSize;
 }
 
