@@ -63,4 +63,6 @@
 #include "Board/WIO_3G/GroveBoard.h"
 #elif defined ARDUINO_WIO_LTE_M1NB1_BG96
 #include "Board/WIO_LTE_M1NB1_BG96/GroveBoard.h"
+#elif defined ARDUINO_Seeed_ReButton
+#include "Board/Seeed_ReButton/GroveBoard.h"
 #endif
