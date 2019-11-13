@@ -47,7 +47,6 @@ bool GroveTempHumiSHT3x::Init()
 	SendCommand(CMD_SOFT_RESET);
 	HalSystem::DelayMs(1);
 
-
 	_IsExist = true;
 	return true;
 }

@@ -70,8 +70,10 @@ void OmronBaro2SMPB02E::SetStandbyTime(STANDBY_TIME standbyTime)
 	_StandbyTime = standbyTime;
 }
 
-void OmronBaro2SMPB02E::Init()
+bool OmronBaro2SMPB02E::Init()
 {
+	if (!_Device->IsExist()) return false;
+
 	uint8_t temp_average;
 	switch (_TemperatureAverageNumber)
 	{
@@ -210,10 +212,20 @@ void OmronBaro2SMPB02E::Init()
 	_b00 = CompensationCoefficientB(TwosComplementValue((coe_b00[0] << 12) + (coe_b00[1] << 4) + ((coe_b00_a0_ex[0] >> 4) & 0x0f), 20));
 
 	_Device->WriteReg8(REG_CTRL_MEAS, temp_average << 5 | press_average << 2 | 0b11);	// POWER_MODE = NORMAL
+
+	_IsExist = true;
+	return true;
 }
 
 void OmronBaro2SMPB02E::Read()
 {
+	if (!_IsExist)
+	{
+		Temperature = NAN;
+		Pressure = NAN;
+		return;
+	}
+
 	uint8_t press_and_temp[6];
 	if (_Device->ReadRegN(REG_PRESS_TXD2, press_and_temp, sizeof(press_and_temp)) != sizeof(press_and_temp)) HalSystem::Abort();
 

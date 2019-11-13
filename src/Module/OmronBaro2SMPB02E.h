@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Abstract/GroveModule.h"
+#include "Abstract/GroveModule2.h"
 #include "../Connector/GroveConnectorI2C.h"
 
-class OmronBaro2SMPB02E : public GroveModule
+class OmronBaro2SMPB02E : public GroveModule2
 {
 public:
 	enum STANDBY_TIME
@@ -54,7 +54,7 @@ public:
 	void SetTemperatureAverageNumber(int temperatureAverageNumber);
 	void SetPressureAverageNumber(int pressureAverageNumber);
 	void SetStandbyTime(STANDBY_TIME standbyTime);
-	void Init();
+	bool Init();
 	void Read();
 
 };
