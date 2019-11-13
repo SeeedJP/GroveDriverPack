@@ -13,6 +13,11 @@ public:
 	{
 	}
 
+	bool IsExist()
+	{
+		return _I2C->Write(_SlaveAddress, (const uint8_t*)0, 0);
+	}
+
 	void Write(const uint8_t* data, int dataSize)
 	{
 		_I2C->Write(_SlaveAddress, data, dataSize);

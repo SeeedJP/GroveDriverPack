@@ -4,13 +4,26 @@
 #define REG_POWER_CTL (0x2d)
 #define REG_DATAX0    (0x32)
 
-void GroveAccelerometer16G::Init()
+bool GroveAccelerometer16G::Init()
 {
+	if (!_Device->IsExist()) return false;
+
 	_Device->WriteReg8(REG_POWER_CTL, 0x08);
+
+	_IsExist = true;
+	return true;
 }
 
 void GroveAccelerometer16G::Read()
 {
+	if (!_IsExist)
+	{
+		X = NAN;
+		Y = NAN;
+		Z = NAN;
+		return;
+	}
+
 	uint8_t readData[6];
 	if (_Device->ReadRegN(REG_DATAX0, readData, sizeof(readData)) != 6) HalSystem::Abort();
 

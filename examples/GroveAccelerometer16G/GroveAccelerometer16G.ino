@@ -19,7 +19,10 @@ void setup() {
   delay(500);
 
   Board.I2C.Enable();
-  Accel.Init();
+  if (!Accel.Init())
+  {
+    SerialUSB.println("Sensor not found.");
+  }
 }
 
 void loop() {
