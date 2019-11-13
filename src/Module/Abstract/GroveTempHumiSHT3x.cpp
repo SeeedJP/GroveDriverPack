@@ -40,14 +40,27 @@ void GroveTempHumiSHT3x::SetRepeatability(REPEATABILITY repeatability)
 	_Repeatability = repeatability;
 }
 
-void GroveTempHumiSHT3x::Init()
+bool GroveTempHumiSHT3x::Init()
 {
+	if (!_Device->IsExist()) return false;
+
 	SendCommand(CMD_SOFT_RESET);
 	HalSystem::DelayMs(1);
+
+
+	_IsExist = true;
+	return true;
 }
 
 void GroveTempHumiSHT3x::Read()
 {
+	if (!_IsExist)
+	{
+		Temperature = NAN;
+		Humidity = NAN;
+		return;
+	}
+
 	uint16_t cmd;
 	int duration;
 	switch (_Repeatability)
@@ -93,5 +106,7 @@ void GroveTempHumiSHT3x::Read()
 
 void GroveTempHumiSHT3x::SetHeater(bool on)
 {
+	if (!_IsExist) return;
+
 	SendCommand(on ? CMD_HEATER_ON : CMD_HEATER_OFF);
 }

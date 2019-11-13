@@ -1,9 +1,9 @@
 #pragma once
 
-#include "GroveModule.h"
+#include "GroveModule2.h"
 #include "../../Connector/GroveConnectorI2C.h"
 
-class GroveTempHumiSHT3x : public GroveModule
+class GroveTempHumiSHT3x : public GroveModule2
 {
 public:
 	enum REPEATABILITY
@@ -35,7 +35,7 @@ protected:
 public:
 	void SetRepeatability(REPEATABILITY repeatability);
 
-	void Init();
+	bool Init();
 	void Read();
 	void SetHeater(bool on);
 

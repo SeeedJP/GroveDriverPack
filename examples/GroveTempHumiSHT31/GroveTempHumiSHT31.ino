@@ -19,7 +19,10 @@ void setup() {
   delay(500);
 
   Board.I2C.Enable();
-  TempHumi.Init();
+  if (!TempHumi.Init())
+  {
+    SerialUSB.println("Sensor not found.");
+  }
 }
 
 void loop() {
