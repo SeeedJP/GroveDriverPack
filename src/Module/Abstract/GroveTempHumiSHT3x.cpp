@@ -5,6 +5,8 @@
 
 #define CMD_SOFT_RESET		(0x30a2)
 #define CMD_SINGLE_HIGH		(0x2400)
+#define CMD_SINGLE_MEDIUM	(0x240b)
+#define CMD_SINGLE_LOW		(0x2416)
 #define CMD_HEATER_ON		(0x306d)
 #define CMD_HEATER_OFF		(0x3066)
 
@@ -33,6 +35,11 @@ uint8_t GroveTempHumiSHT3x::CalcCRC8(const uint8_t* data, int dataSize)
 	return crc;
 }
 
+void GroveTempHumiSHT3x::SetRepeatability(REPEATABILITY repeatability)
+{
+	_Repeatability = repeatability;
+}
+
 void GroveTempHumiSHT3x::Init()
 {
 	SendCommand(CMD_SOFT_RESET);
@@ -41,8 +48,28 @@ void GroveTempHumiSHT3x::Init()
 
 void GroveTempHumiSHT3x::Read()
 {
-	SendCommand(CMD_SINGLE_HIGH);
-	HalSystem::DelayMs(15);
+	uint16_t cmd;
+	int duration;
+	switch (_Repeatability)
+	{
+	case REPEATABILITY_HIGH:
+		cmd = CMD_SINGLE_HIGH;
+		duration = 15;
+		break;
+	case REPEATABILITY_MEDIUM:
+		cmd = CMD_SINGLE_MEDIUM;
+		duration = 6;
+		break;
+	case REPEATABILITY_LOW:
+		cmd = CMD_SINGLE_LOW;
+		duration = 4;
+		break;
+	default:
+		HalSystem::Abort();
+	}
+
+	SendCommand(cmd);
+	HalSystem::DelayMs(duration);
 
 	uint8_t readData[6];
 	if (_Device->Read(readData, sizeof(readData)) != 6) HalSystem::Abort();
