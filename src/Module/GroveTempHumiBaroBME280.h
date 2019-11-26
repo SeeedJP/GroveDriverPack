@@ -4,10 +4,10 @@
 
 #pragma once
 
-#include "Abstract/GroveModule.h"
+#include "Abstract/GroveModule2.h"
 #include "../Connector/GroveConnectorI2C.h"
 
-class GroveTempHumiBaroBME280 : public GroveModule
+class GroveTempHumiBaroBME280 : public GroveModule2
 {
 private:
 	HalI2CDevice * _Device;
@@ -51,7 +51,7 @@ public:
 		_Device = connector->NewDevice(0x76);	// I2C_ADDRESS
 	}
 
-	void Init();
+	bool Init();
 	void Read();
 
 };

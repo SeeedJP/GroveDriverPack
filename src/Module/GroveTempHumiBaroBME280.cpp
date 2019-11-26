@@ -74,8 +74,10 @@ uint32_t GroveTempHumiBaroBME280::ReadReg24(uint8_t reg)
 	return (uint32_t)data[0] << 16 | (uint32_t)data[1] << 8 | data[2];
 }
 
-void GroveTempHumiBaroBME280::Init()
+bool GroveTempHumiBaroBME280::Init()
 {
+	if (!_Device->IsExist()) return false;
+
 	if (ReadReg8(BME280_REG_CHIPID) != 0x60) HalSystem::Abort();
 
 	dig_T1 = ReadReg16LE(BME280_REG_DIG_T1);
@@ -101,10 +103,21 @@ void GroveTempHumiBaroBME280::Init()
 
 	_Device->WriteReg8(BME280_REG_CONTROLHUMID, 0x05);
 	_Device->WriteReg8(BME280_REG_CONTROL, 0xB7);
+
+	_IsExist = true;
+	return true;
 }
 
 void GroveTempHumiBaroBME280::Read()
 {
+	if (!_IsExist)
+	{
+		Temperature = NAN;
+		Humidity = NAN;
+		Pressure = NAN;
+		return;
+	}
+
 	// Temperature
 
 	int32_t t_fine;
