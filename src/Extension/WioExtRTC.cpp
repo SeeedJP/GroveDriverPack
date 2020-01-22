@@ -23,49 +23,105 @@
 
 bool WioExtRTC::Init()
 {
-	if (!_Device->ChangeReg8(PCF8523_TMR_CLOCKOUT_CTRL, 0b11000111, 0b00000000)) return false;	// CLKOUT is 32768Hz
-	
-	return true;
+	return HwClockOut(true);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // RTC functions
 
+bool WioExtRTC::HwClockOut(bool enable)
+{
+	uint8_t cof = enable ? 0b000 : 0b111;	// CLKOUT = 32768Hz : high-Z
+	if (!_Device->ChangeReg8(PCF8523_TMR_CLOCKOUT_CTRL, 0b11000111, cof << 3)) return false;
+
+	return true;
+}
+
+bool WioExtRTC::HwTimerBEnable(bool enable)
+{
+	uint8_t tbc = enable ? 0b1 : 0b0;
+	if (!_Device->ChangeReg8(PCF8523_TMR_CLOCKOUT_CTRL, 0b11111110, tbc)) return false;
+
+	return true;
+}
+
+bool WioExtRTC::HwTimerBSetPeriod(int sec, int unitSec)
+{
+	uint8_t tbq;
+	switch (unitSec)
+	{
+	case 1:
+		tbq = 0b010;	// 1Hz
+		break;
+	case 60:
+		tbq = 0b011;	// 1/60Hz
+		break;
+	case 3600:
+		tbq = 0b100;	// 1/3600Hz
+		break;
+	default:
+		return false;
+	}
+
+	if (!_Device->ChangeReg8(PCF8523_TMR_B_FREQ_CTRL, 0b11111000, tbq)) return false;
+	_Device->WriteReg8(PCF8523_TMR_B_REG, sec / unitSec);
+
+	return true;
+}
+
+bool WioExtRTC::HwTimerBIsFlag()
+{
+	uint8_t data;
+	if (_Device->ReadReg8(PCF8523_CONTROL_2, &data) != 1) return false;
+
+	return (data & 0b00100000) ? true : false;
+}
+
+bool WioExtRTC::HwTimerBClearFlag()
+{
+	if (!_Device->ChangeReg8(PCF8523_CONTROL_2, 0b11011111, 0b00000000)) return false;
+
+	return true;
+}
+
+bool WioExtRTC::HwTimerBEnableInterrupt(bool enable)
+{
+	uint8_t ctbie = enable ? 0b1 : 0b0;
+	if (!_Device->ChangeReg8(PCF8523_CONTROL_2, 0b11111110, ctbie)) return false;
+
+	return true;
+}
+
 bool WioExtRTC::SetWakeupPeriod(int sec)
 {
 	if (sec <= 0 || 255 < sec / 3600) return false;
 
-	if (!_Device->ChangeReg8(PCF8523_TMR_CLOCKOUT_CTRL, 0b11111110, 0b00000000)) return false;	// timer B is disabled
+	if (!HwTimerBEnable(false)) return false;	// --- Disable ---
 
 	if (sec <= 255)
 	{
-		_Device->WriteReg8(PCF8523_TMR_B_FREQ_CTRL, 0b00000010);							// source for timer B is 1Hz
-		_Device->WriteReg8(PCF8523_TMR_B_REG, sec);											// timer B value
+		if (!HwTimerBSetPeriod(sec, 1)) return false;
 	}
 	else if (sec / 60 <= 255)
 	{
-		_Device->WriteReg8(PCF8523_TMR_B_FREQ_CTRL, 0b00000011);							// source for timer B is 1/60Hz
-		_Device->WriteReg8(PCF8523_TMR_B_REG, sec / 60);									// timer B value
-
+		if (!HwTimerBSetPeriod(sec, 60)) return false;
 	}
 	else
 	{
-		_Device->WriteReg8(PCF8523_TMR_B_FREQ_CTRL, 0b00000100);							// source for timer B is 1/3600Hz
-		_Device->WriteReg8(PCF8523_TMR_B_REG, sec / 3600);									// timer B value
+		if (!HwTimerBSetPeriod(sec, 3600)) return false;
 	}
 
-	if (!_Device->ChangeReg8(PCF8523_CONTROL_2, 0b00000000, 0b00000001)) return false;		// countdown timer B interrupt is enabled
+	if (!HwTimerBClearFlag()) return false;
+	if (!HwTimerBEnableInterrupt(true)) return false;
 
-	if (!_Device->ChangeReg8(PCF8523_TMR_CLOCKOUT_CTRL, 0b11111111, 0b00000001)) return false;	// timer B is enabled
+	if (!HwTimerBEnable(true)) return false;	// --- Enable ---
 
 	return true;
 }
 
 bool WioExtRTC::Shutdown()
 {
-	if (!_Device->ChangeReg8(PCF8523_TMR_CLOCKOUT_CTRL, 0b11111111, 0b00111000)) return false;	// CLKOUT disabled
-
-	return true;
+	return HwClockOut(false);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -28,6 +28,13 @@ public:
 private:
 	HalI2CDevice* _Device;
 
+	bool HwClockOut(bool enable);
+	bool HwTimerBEnable(bool enable);
+	bool HwTimerBSetPeriod(int sec, int unitSec);
+	bool HwTimerBIsFlag();
+	bool HwTimerBClearFlag();
+	bool HwTimerBEnableInterrupt(bool enable);
+
 public:
 	EEPROM Eeprom;
 
