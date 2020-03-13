@@ -19,6 +19,7 @@
 #include "Module/GroveLight.h"
 #include "Module/GroveAccelerometer16G.h"
 //#include "Module/GroveAccelerometer015G.h"
+#include "Module/GroveAccelerometerLSM6DS3.h"
 #include "Module/GroveMagneticSwitch.h"
 #include "Module/GroveGPS.h"
 #include "Module/GroveRotaryAngle.h"
