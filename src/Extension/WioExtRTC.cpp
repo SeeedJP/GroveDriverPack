@@ -1,4 +1,5 @@
 #include "WioExtRTC.h"
+#include <climits>
 
 #define PCF8523_CONTROL_1			(0x00)
 #define PCF8523_CONTROL_2			(0x01)
@@ -94,6 +95,15 @@ bool WioExtRTC::HwTimerBEnableInterrupt(bool enable)
 
 bool WioExtRTC::SetWakeupPeriod(int sec)
 {
+	if (sec == INT_MAX)
+	{
+		if (!HwTimerBEnable(false)) return false;
+		if (!HwTimerBClearFlag()) return false;
+		if (!HwTimerBEnableInterrupt(false)) return false;
+
+		return true;
+	}
+
 	if (sec <= 0 || 255 < sec / 3600) return false;
 
 	if (!HwTimerBEnable(false)) return false;	// --- Disable ---
