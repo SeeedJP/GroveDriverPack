@@ -20,6 +20,8 @@
 
 bool Grove6AxisAccelGyroLSM6DS3::Init()
 {
+    if (!_Device->IsExist()) return false;
+
     uint8_t val;
     _Device->ReadReg8(LSM6DS3_REG_ACC_GYRO_WHO_AM_I, &val);
     if (val != LSM6DS3_ACC_GYRO_WHO_AM_I &&
@@ -36,11 +38,23 @@ bool Grove6AxisAccelGyroLSM6DS3::Init()
         LSM6DS3_ACC_GYRO_FS_G_2000dps |
         LSM6DS3_ACC_GYRO_ODR_G_416Hz);
 
+    _IsExist = true;
 	return true;
 }
 
 void Grove6AxisAccelGyroLSM6DS3::Read()
 {
+    if (!_IsExist)
+    {
+        AccelX = NAN;
+        AccelY = NAN;
+        AccelZ = NAN;
+        GyroX = NAN;
+        GyroY = NAN;
+        GyroZ = NAN;
+        return;
+    }
+
     int16_t val;
     _Device->ReadRegN(LSM6DS3_REG_ACC_GYRO_OUTX_L_XL, (uint8_t *)&val, 2);
     AccelX = (float)val * 0.061 * (16 >> 1) / 1000;
