@@ -19,7 +19,6 @@
 #include "Module/GroveLight.h"
 #include "Module/GroveAccelerometer16G.h"
 //#include "Module/GroveAccelerometer015G.h"
-#include "Module/GroveAccelerometerLSM6DS3.h"
 #include "Module/GroveMagneticSwitch.h"
 #include "Module/GroveGPS.h"
 #include "Module/GroveRotaryAngle.h"
@@ -41,6 +40,7 @@
 #include "Module/GroveI2CColorSensor2.h"
 #include "Module/OmronBaro2SMPB02E.h"
 #include "Module/GroveTempHumiSHT35.h"
+#include "Module/Grove6AxisAccelGyroLSM6DS3.h"
 
 #if defined ARDUINO_ARCH_STM32F4 || defined ARDUINO_ARCH_STM32
 

@@ -8,7 +8,7 @@
 WioCellular Wio;
 
 GroveBoard Board;
-GroveAccelerometerLSM6DS3 LSM6DS3(&Board.I2C);
+Grove6AxisAccelGyroLSM6DS3 LSM6DS3(&Board.I2C);
 
 void setup() {
   delay(200);

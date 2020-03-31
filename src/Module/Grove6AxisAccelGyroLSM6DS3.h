@@ -7,7 +7,7 @@
 #include "Abstract/GroveModule2.h"
 #include "../Connector/GroveConnectorI2C.h"
 
-class GroveAccelerometerLSM6DS3 : public GroveModule2
+class Grove6AxisAccelGyroLSM6DS3 : public GroveModule2
 {
 public:
     enum lsm6ds3_mode_t
@@ -30,7 +30,7 @@ public:
     float gyroZ;
 
 public:
-	GroveAccelerometerLSM6DS3(GroveConnectorI2C* connector)
+	Grove6AxisAccelGyroLSM6DS3(GroveConnectorI2C* connector)
 	{
 		_Device = connector->NewDevice(0x6A);	// I2C_ADDRESS
         _mode = MODE_BASIC_MEASURE;

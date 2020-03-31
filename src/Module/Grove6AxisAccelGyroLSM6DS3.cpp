@@ -1,8 +1,8 @@
-#include "GroveAccelerometerLSM6DS3.h"
+#include "Grove6AxisAccelGyroLSM6DS3.h"
 #include "LSM6DS3.h"
 #include <math.h>
 
-bool GroveAccelerometerLSM6DS3::Init()
+bool Grove6AxisAccelGyroLSM6DS3::Init()
 {
     uint8_t val;
     _Device->ReadReg8(LSM6DS3_ACC_GYRO_WHO_AM_I_REG, &val);
@@ -16,7 +16,7 @@ bool GroveAccelerometerLSM6DS3::Init()
 	return true;
 }
 
-void GroveAccelerometerLSM6DS3::Setup(lsm6ds3_mode_t mode)
+void Grove6AxisAccelGyroLSM6DS3::Setup(lsm6ds3_mode_t mode)
 {
     if (!_IsExist)
     {
@@ -67,7 +67,7 @@ void GroveAccelerometerLSM6DS3::Setup(lsm6ds3_mode_t mode)
     this->_mode = mode;
 }
 
-void GroveAccelerometerLSM6DS3::ReadAccel()
+void Grove6AxisAccelGyroLSM6DS3::ReadAccel()
 {
 	if (!_IsExist)
 	{
@@ -88,7 +88,7 @@ void GroveAccelerometerLSM6DS3::ReadAccel()
     accelZ = (float)val * 0.061 * (16 >> 1) / 1000;
 }
 
-void GroveAccelerometerLSM6DS3::ReadGyro()
+void Grove6AxisAccelGyroLSM6DS3::ReadGyro()
 {
 	if (!_IsExist)
 	{
@@ -110,7 +110,7 @@ void GroveAccelerometerLSM6DS3::ReadGyro()
     gyroZ = (float)val * 4.375 * div / 1000;
 }
 
-uint16_t GroveAccelerometerLSM6DS3::GetStepCounter()
+uint16_t Grove6AxisAccelGyroLSM6DS3::GetStepCounter()
 {
     uint16_t count;
     uint8_t val;
@@ -121,7 +121,7 @@ uint16_t GroveAccelerometerLSM6DS3::GetStepCounter()
     return count;
 }
 
-void GroveAccelerometerLSM6DS3::ClearStepCounter()
+void Grove6AxisAccelGyroLSM6DS3::ClearStepCounter()
 {
     uint8_t val;
     _Device->ReadReg8(LSM6DS3_ACC_GYRO_CTRL10_C, &val);
@@ -129,7 +129,7 @@ void GroveAccelerometerLSM6DS3::ClearStepCounter()
     _Device->WriteReg8(LSM6DS3_ACC_GYRO_CTRL10_C, val);
 }
 
-bool GroveAccelerometerLSM6DS3::WaitForFreeFallEvent(uint32_t timeout_ms, uint32_t polling_ms)
+bool Grove6AxisAccelGyroLSM6DS3::WaitForFreeFallEvent(uint32_t timeout_ms, uint32_t polling_ms)
 {
     uint8_t val;
     while (timeout_ms)
