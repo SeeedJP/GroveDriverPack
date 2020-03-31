@@ -1,152 +1,62 @@
 #include "Grove6AxisAccelGyroLSM6DS3.h"
-#include "LSM6DS3.h"
-#include <math.h>
+
+#define LSM6DS3_REG_ACC_GYRO_WHO_AM_I       (0x0F)
+#define LSM6DS3_REG_ACC_GYRO_CTRL1_XL       (0x10)
+#define LSM6DS3_REG_ACC_GYRO_CTRL2_G        (0x11)
+#define LSM6DS3_REG_ACC_GYRO_OUTX_L_G       (0x22)
+#define LSM6DS3_REG_ACC_GYRO_OUTY_L_G       (0x24)
+#define LSM6DS3_REG_ACC_GYRO_OUTZ_L_G       (0x26)
+#define LSM6DS3_REG_ACC_GYRO_OUTX_L_XL      (0x28)
+#define LSM6DS3_REG_ACC_GYRO_OUTY_L_XL      (0x2A)
+#define LSM6DS3_REG_ACC_GYRO_OUTZ_L_XL      (0x2C)
+
+#define LSM6DS3_ACC_GYRO_WHO_AM_I           (0x69)
+#define LSM6DS3_C_ACC_GYRO_WHO_AM_I         (0x6A)
+#define LSM6DS3_ACC_GYRO_BW_XL_100Hz        (0x02)
+#define LSM6DS3_ACC_GYRO_FS_XL_16g          (0x04)
+#define LSM6DS3_ACC_GYRO_ODR_XL_416Hz       (0x60)
+#define LSM6DS3_ACC_GYRO_FS_G_2000dps       (0x0C)
+#define LSM6DS3_ACC_GYRO_ODR_G_416Hz        (0x60)
 
 bool Grove6AxisAccelGyroLSM6DS3::Init()
 {
     uint8_t val;
-    _Device->ReadReg8(LSM6DS3_ACC_GYRO_WHO_AM_I_REG, &val);
+    _Device->ReadReg8(LSM6DS3_REG_ACC_GYRO_WHO_AM_I, &val);
     if (val != LSM6DS3_ACC_GYRO_WHO_AM_I &&
         val != LSM6DS3_C_ACC_GYRO_WHO_AM_I)
     {
         return false;
     }
 
-	_IsExist = true;
+    _Device->WriteReg8(LSM6DS3_REG_ACC_GYRO_CTRL1_XL,
+        LSM6DS3_ACC_GYRO_BW_XL_100Hz |
+        LSM6DS3_ACC_GYRO_FS_XL_16g |
+        LSM6DS3_ACC_GYRO_ODR_XL_416Hz);
+    _Device->WriteReg8(LSM6DS3_REG_ACC_GYRO_CTRL2_G,
+        LSM6DS3_ACC_GYRO_FS_G_2000dps |
+        LSM6DS3_ACC_GYRO_ODR_G_416Hz);
+
 	return true;
 }
 
-void Grove6AxisAccelGyroLSM6DS3::Setup(lsm6ds3_mode_t mode)
+void Grove6AxisAccelGyroLSM6DS3::Read()
 {
-    if (!_IsExist)
-    {
-        return;
-    }
-
-    switch(mode) {
-        case MODE_FREEFALL_DETECTION:
-            _Device->WriteReg8(LSM6DS3_ACC_GYRO_CTRL1_XL,
-                LSM6DS3_ACC_GYRO_BW_XL_200Hz |
-                LSM6DS3_ACC_GYRO_FS_XL_2g |
-                LSM6DS3_ACC_GYRO_ODR_XL_416Hz);
-            _Device->WriteReg8(LSM6DS3_ACC_GYRO_FREE_FALL,
-                LSM6DS3_ACC_GYRO_FF_THS_10 |
-                0x30);
-            _Device->WriteReg8(LSM6DS3_ACC_GYRO_MD1_CFG,
-                LSM6DS3_ACC_GYRO_INT1_FF_ENABLED);
-            _Device->WriteReg8(LSM6DS3_ACC_GYRO_MD2_CFG,
-                LSM6DS3_ACC_GYRO_INT2_FF_ENABLED);
-            _Device->WriteReg8(LSM6DS3_ACC_GYRO_TAP_CFG1,
-                LSM6DS3_ACC_GYRO_LIR_ENABLED);
-            break;
-        case MODE_STEP_COUNTER:
-            _Device->WriteReg8(LSM6DS3_ACC_GYRO_CTRL1_XL,
-                LSM6DS3_ACC_GYRO_BW_XL_400Hz |
-                LSM6DS3_ACC_GYRO_FS_XL_2g |
-                LSM6DS3_ACC_GYRO_ODR_XL_26Hz);
-            _Device->WriteReg8(LSM6DS3_ACC_GYRO_CTRL10_C,
-                LSM6DS3_ACC_GYRO_PEDO_RST_STEP_ENABLED |
-                LSM6DS3_ACC_GYRO_FUNC_EN_ENABLED |
-                LSM6DS3_ACC_GYRO_XEN_G_ENABLED |
-                LSM6DS3_ACC_GYRO_YEN_G_ENABLED |
-                LSM6DS3_ACC_GYRO_ZEN_G_ENABLED);
-            _Device->WriteReg8(LSM6DS3_ACC_GYRO_TAP_CFG1,
-                LSM6DS3_ACC_GYRO_PEDO_EN_ENABLED);
-            break;
-        case MODE_BASIC_MEASURE:
-        default:
-            _Device->WriteReg8(LSM6DS3_ACC_GYRO_CTRL1_XL,
-                LSM6DS3_ACC_GYRO_BW_XL_100Hz |
-                LSM6DS3_ACC_GYRO_FS_XL_16g |
-                LSM6DS3_ACC_GYRO_ODR_XL_416Hz);
-            _Device->WriteReg8(LSM6DS3_ACC_GYRO_CTRL2_G,
-                LSM6DS3_ACC_GYRO_FS_G_2000dps |
-                LSM6DS3_ACC_GYRO_ODR_G_416Hz);
-            break;
-    }
-    this->_mode = mode;
-}
-
-void Grove6AxisAccelGyroLSM6DS3::ReadAccel()
-{
-	if (!_IsExist)
-	{
-		accelX = NAN;
-		accelY = NAN;
-		accelZ = NAN;
-		return;
-	}
-
     int16_t val;
-    _Device->ReadRegN(LSM6DS3_ACC_GYRO_OUTX_L_XL, (uint8_t *)&val, 2);
-    accelX = (float)val * 0.061 * (16 >> 1) / 1000;
+    _Device->ReadRegN(LSM6DS3_REG_ACC_GYRO_OUTX_L_XL, (uint8_t *)&val, 2);
+    AccelX = (float)val * 0.061 * (16 >> 1) / 1000;
 
-    _Device->ReadRegN(LSM6DS3_ACC_GYRO_OUTY_L_XL, (uint8_t *)&val, 2);
-    accelY = (float)val * 0.061 * (16 >> 1) / 1000;
+    _Device->ReadRegN(LSM6DS3_REG_ACC_GYRO_OUTY_L_XL, (uint8_t *)&val, 2);
+    AccelY = (float)val * 0.061 * (16 >> 1) / 1000;
 
-    _Device->ReadRegN(LSM6DS3_ACC_GYRO_OUTZ_L_XL, (uint8_t *)&val, 2);
-    accelZ = (float)val * 0.061 * (16 >> 1) / 1000;
-}
+    _Device->ReadRegN(LSM6DS3_REG_ACC_GYRO_OUTZ_L_XL, (uint8_t *)&val, 2);
+    AccelZ = (float)val * 0.061 * (16 >> 1) / 1000;
 
-void Grove6AxisAccelGyroLSM6DS3::ReadGyro()
-{
-	if (!_IsExist)
-	{
-		gyroX = NAN;
-		gyroY = NAN;
-		gyroZ = NAN;
-		return;
-	}
+    _Device->ReadRegN(LSM6DS3_REG_ACC_GYRO_OUTX_L_G, (uint8_t *)&val, 2);
+    GyroX = (float)val * 4.375 * 16 / 1000;
 
-    uint8_t div = 16;
-    int16_t val;
-    _Device->ReadRegN(LSM6DS3_ACC_GYRO_OUTX_L_G, (uint8_t *)&val, 2);
-    gyroX = (float)val * 4.375 * div / 1000;
+    _Device->ReadRegN(LSM6DS3_REG_ACC_GYRO_OUTY_L_G, (uint8_t *)&val, 2);
+    GyroY = (float)val * 4.375 * 16 / 1000;
 
-    _Device->ReadRegN(LSM6DS3_ACC_GYRO_OUTY_L_G, (uint8_t *)&val, 2);
-    gyroY = (float)val * 4.375 * div / 1000;
-
-    _Device->ReadRegN(LSM6DS3_ACC_GYRO_OUTZ_L_G, (uint8_t *)&val, 2);
-    gyroZ = (float)val * 4.375 * div / 1000;
-}
-
-uint16_t Grove6AxisAccelGyroLSM6DS3::GetStepCounter()
-{
-    uint16_t count;
-    uint8_t val;
-    _Device->ReadReg8(LSM6DS3_ACC_GYRO_STEP_COUNTER_H, &val);
-    count = val << 8;
-    _Device->ReadReg8(LSM6DS3_ACC_GYRO_STEP_COUNTER_L, &val);
-    count |= val;
-    return count;
-}
-
-void Grove6AxisAccelGyroLSM6DS3::ClearStepCounter()
-{
-    uint8_t val;
-    _Device->ReadReg8(LSM6DS3_ACC_GYRO_CTRL10_C, &val);
-    val |= LSM6DS3_ACC_GYRO_PEDO_RST_STEP_ENABLED;
-    _Device->WriteReg8(LSM6DS3_ACC_GYRO_CTRL10_C, val);
-}
-
-bool Grove6AxisAccelGyroLSM6DS3::WaitForFreeFallEvent(uint32_t timeout_ms, uint32_t polling_ms)
-{
-    uint8_t val;
-    while (timeout_ms)
-    {
-        _Device->ReadReg8(LSM6DS3_ACC_GYRO_WAKE_UP_SRC, &val);
-        if (val & LSM6DS3_ACC_GYRO_FF_EV_STATUS_DETECTED)
-        {
-            return true;
-        }
-
-        uint32_t delay_ms = polling_ms;
-        if (timeout_ms < polling_ms)
-        {
-            delay_ms = timeout_ms;
-        }
-        delay(delay_ms);
-        timeout_ms -= delay_ms;
-    }
-    return false;
+    _Device->ReadRegN(LSM6DS3_REG_ACC_GYRO_OUTZ_L_G, (uint8_t *)&val, 2);
+    GyroZ = (float)val * 4.375 * 16 / 1000;
 }

@@ -19,35 +19,24 @@ void setup() {
   delay(500);
 
   Board.I2C.Enable();
-  if (!LSM6DS3.Init())
-  {
-    SerialUSB.println("Sensor not found.");
-  }
-  else
-  {
-    LSM6DS3.Setup(LSM6DS3.MODE_BASIC_MEASURE);
-    SerialUSB.println("Sensor ready.");
-  }
+  LSM6DS3.Init();
 }
 
 void loop() {
-  char log[80];
-  char strAX[10], strAY[10], strAZ[10];
-  char strGX[10], strGY[10], strGZ[10];
-
-  LSM6DS3.ReadAccel();
-  dtostrf(LSM6DS3.accelX, 4, 2, strAX);
-  dtostrf(LSM6DS3.accelY, 4, 2, strAY);
-  dtostrf(LSM6DS3.accelZ, 4, 2, strAZ);
-
-  LSM6DS3.ReadGyro();
-  dtostrf(LSM6DS3.gyroX, 4, 2, strGX);
-  dtostrf(LSM6DS3.gyroY, 4, 2, strGY);
-  dtostrf(LSM6DS3.gyroZ, 4, 2, strGZ);
-
-  sprintf(log, "Accel: %6s, %6s, %6s    Gyro: %8s, %8s, %8s",
-    strAX, strAY, strAZ, strGX, strGY, strGZ);
-  SerialUSB.println(log);
+  LSM6DS3.Read();
+  SerialUSB.print("Accel: ");
+  SerialUSB.print(LSM6DS3.AccelX);
+  SerialUSB.print(" ");
+  SerialUSB.print(LSM6DS3.AccelY);
+  SerialUSB.print(" ");
+  SerialUSB.print(LSM6DS3.AccelZ);
+  SerialUSB.print("  ");
+  SerialUSB.print("Gyro: ");
+  SerialUSB.print(LSM6DS3.GyroX);
+  SerialUSB.print(" ");
+  SerialUSB.print(LSM6DS3.GyroY);
+  SerialUSB.print(" ");
+  SerialUSB.println(LSM6DS3.GyroZ);
 
   delay(INTERVAL);
 }

@@ -9,41 +9,23 @@
 
 class Grove6AxisAccelGyroLSM6DS3 : public GroveModule2
 {
-public:
-    enum lsm6ds3_mode_t
-    {
-        MODE_BASIC_MEASURE,
-        MODE_STEP_COUNTER,
-        MODE_FREEFALL_DETECTION,
-    };
-
 private:
 	HalI2CDevice* _Device;
-    lsm6ds3_mode_t _mode;
 
 public:
-	float accelX;
-	float accelY;
-	float accelZ;
-    float gyroX;
-    float gyroY;
-    float gyroZ;
+	float AccelX;
+	float AccelY;
+	float AccelZ;
+    float GyroX;
+    float GyroY;
+    float GyroZ;
 
 public:
 	Grove6AxisAccelGyroLSM6DS3(GroveConnectorI2C* connector)
 	{
 		_Device = connector->NewDevice(0x6A);	// I2C_ADDRESS
-        _mode = MODE_BASIC_MEASURE;
 	}
 
 	bool Init();
-    void Setup(lsm6ds3_mode_t mode);
-
-	void ReadAccel();
-	void ReadGyro();
-
-    uint16_t GetStepCounter();
-    void ClearStepCounter();
-
-    bool WaitForFreeFallEvent(uint32_t timeout_ms, uint32_t polling_ms);
+	void Read();
 };
