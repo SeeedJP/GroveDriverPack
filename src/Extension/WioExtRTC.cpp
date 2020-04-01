@@ -93,6 +93,11 @@ bool WioExtRTC::HwTimerBEnableInterrupt(bool enable)
 	return true;
 }
 
+bool WioExtRTC::IsWakeupReasonPeriod()
+{
+	return HwTimerBIsFlag();
+}
+
 bool WioExtRTC::SetWakeupPeriod(int sec)
 {
 	if (sec == INT_MAX)

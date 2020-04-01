@@ -45,6 +45,7 @@ public:
 	}
 
 	bool Init();
+	bool IsWakeupReasonPeriod();
 	bool SetWakeupPeriod(int sec);
 	bool Shutdown();
 
