@@ -1,4 +1,4 @@
-// BOARD Seeed Wio
+// BOARD Seeed Wio 3G
 // GROVE I2C <-> Grove - 6-Axis Accelerometer&Gyroscope (SKU#105020012)
 
 #include <GroveDriverPack.h>
@@ -19,7 +19,10 @@ void setup() {
   delay(500);
 
   Board.I2C.Enable();
-  LSM6DS3.Init();
+  if (!LSM6DS3.Init())
+  {
+      SerialUSB.println("Sensor not found.");
+  }
 }
 
 void loop() {
