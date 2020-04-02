@@ -2,6 +2,7 @@
 
 void GroveEMGDetector::Init()
 {
+	_Pin->Enable();
 }
 
 void GroveEMGDetector::Read()

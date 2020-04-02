@@ -2,6 +2,7 @@
 
 void GroveGasO2::Init()
 {
+	_Pin->Enable();
 }
 
 void GroveGasO2::Read()

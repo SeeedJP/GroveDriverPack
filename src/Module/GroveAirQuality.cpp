@@ -2,6 +2,7 @@
 
 void GroveAirQuality::Init()
 {
+	_Pin->Enable();
 }
 
 void GroveAirQuality::Read()

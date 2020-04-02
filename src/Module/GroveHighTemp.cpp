@@ -66,6 +66,8 @@ float GroveHighTemp::ReadThermocoupleTemperature() const
 
 void GroveHighTemp::Init()
 {
+	_Pin1->Enable();
+	_Pin2->Enable();
 }
 
 void GroveHighTemp::Read()

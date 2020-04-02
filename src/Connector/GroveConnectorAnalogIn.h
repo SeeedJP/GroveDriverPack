@@ -16,8 +16,6 @@ public:
 
 	void Enable()
 	{
-		P1.Enable();
-		P2.Enable();
 	}
 
 };

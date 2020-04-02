@@ -2,6 +2,7 @@
 
 void GroveLight::Init()
 {
+	_Pin->Enable();
 }
 
 void GroveLight::Read()
