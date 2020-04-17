@@ -34,6 +34,8 @@ private:
 	bool HwTimerBIsFlag();
 	bool HwTimerBClearFlag();
 	bool HwTimerBEnableInterrupt(bool enable);
+	bool HwSetDateTime(int year2digit, int month, int day, int weekday, int hour, int minute, int second);
+	bool HwGetDateTime(int& year2digit, int& month, int& day, int& weekday, int& hour, int& minute, int& second);
 
 public:
 	EEPROM Eeprom;
@@ -45,6 +47,8 @@ public:
 	}
 
 	bool Init();
+	bool SetDateTime(int year, int month, int day, int hour, int minute, int second);
+	bool GetDateTime(int& year, int& month, int& day, int& hour, int& minute, int& second);
 	bool IsWakeupReasonPeriod();
 	bool SetWakeupPeriod(int sec);
 	bool Shutdown();

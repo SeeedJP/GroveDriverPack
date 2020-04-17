@@ -1,4 +1,5 @@
 #include "WioExtRTC.h"
+#include <cassert>
 #include <climits>
 
 #define PCF8523_CONTROL_1			(0x00)
@@ -21,6 +22,22 @@
 #define PCF8523_TMR_A_REG			(0x11)
 #define PCF8523_TMR_B_FREQ_CTRL		(0x12)
 #define PCF8523_TMR_B_REG			(0x13)
+
+static int Weekday(int year, int month, int day)
+{
+	return (day += month < 3 ? year-- : year - 2, 23 * month / 9 + day + 4 + year / 4 - year / 100 + year / 400) % 7;
+}
+
+static uint8_t EncodeBCD(uint8_t value)
+{
+	assert(value <= 99);
+	return value / 10 * 0x10 + value % 10;
+}
+
+static uint8_t DecodeBCD(uint8_t value)
+{
+	return value / 0x10 * 10 + value % 0x10;
+}
 
 bool WioExtRTC::Init()
 {
@@ -89,6 +106,88 @@ bool WioExtRTC::HwTimerBEnableInterrupt(bool enable)
 {
 	uint8_t ctbie = enable ? 0b1 : 0b0;
 	if (!_Device->ChangeReg8(PCF8523_CONTROL_2, 0b11111110, ctbie)) return false;
+
+	return true;
+}
+
+bool WioExtRTC::HwSetDateTime(int year2digit, int month, int day, int weekday, int hour, int minute, int second)
+{
+	if (!(0 <= year2digit && year2digit <= 99)) return false;
+	if (!(1 <= month && month <= 12)) return false;
+	if (!(1 <= day && day <= 31)) return false;
+	if (!(0 <= weekday && weekday <= 6)) return false;
+	if (!(0 <= hour && hour <= 23)) return false;
+	if (!(0 <= minute && minute <= 59)) return false;
+	if (!(0 <= second && second <= 59)) return false;
+
+	uint8_t data[7];
+	data[0] = EncodeBCD(second);
+	data[1] = EncodeBCD(minute);
+	data[2] = EncodeBCD(hour);
+	data[3] = EncodeBCD(day);
+	data[4] = EncodeBCD(weekday);
+	data[5] = EncodeBCD(month);
+	data[6] = EncodeBCD(year2digit);
+
+	_Device->WriteRegN(PCF8523_SECONDS, data, sizeof(data));
+
+	_Device->WriteReg8(PCF8523_TMR_A_FREQ_CTRL, 0b00000110);	// Change to other than initial value. TAQ = 0b110
+
+	return true;
+}
+
+bool WioExtRTC::HwGetDateTime(int& year2digit, int& month, int& day, int& weekday, int& hour, int& minute, int& second)
+{
+	uint8_t freqCtrl;
+	if (_Device->ReadReg8(PCF8523_TMR_A_FREQ_CTRL, &freqCtrl) != 1) return false;
+	if ((freqCtrl & 0b00000111) == 0b00000111)	// Is it initial value? TAQ = 0b111
+	{
+		year2digit = 0;
+		month = 0;
+		day = 0;
+		weekday = 0;
+		hour = 0;
+		minute = 0;
+		second = 0;
+
+		return true;
+	}
+
+	uint8_t data[7];
+	if (_Device->ReadRegN(PCF8523_SECONDS, data, sizeof(data)) != sizeof(data)) return false;
+
+	second = DecodeBCD(data[0] & 0x7f);
+	minute = DecodeBCD(data[1] & 0x7f);
+	hour = DecodeBCD(data[2] & 0x3f);
+	day = DecodeBCD(data[3] & 0x3f);
+	weekday = DecodeBCD(data[4] & 0x07);
+	month = DecodeBCD(data[5] & 0x1f);
+	year2digit = DecodeBCD(data[6]);
+
+	return true;
+}
+
+bool WioExtRTC::SetDateTime(int year, int month, int day, int hour, int minute, int second)
+{
+	if (!(1980 <= year && year <= 2079)) return false;
+
+	return HwSetDateTime(year % 100, month, day, Weekday(year, month, day), hour, minute, second);
+}
+
+bool WioExtRTC::GetDateTime(int& year, int& month, int& day, int& hour, int& minute, int& second)
+{
+	int year2digit;
+	int weekday;
+	if (!HwGetDateTime(year2digit, month, day, weekday, hour, minute, second)) return false;
+
+	if (year2digit == 0)
+	{
+		year = 0;
+	}
+	else
+	{
+		year = (year2digit >= 80 ? 1900 : 2000) + year2digit;
+	}
 
 	return true;
 }
