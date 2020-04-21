@@ -174,6 +174,11 @@ bool WioExtRTC::SetDateTime(int year, int month, int day, int hour, int minute, 
 	return HwSetDateTime(year % 100, month, day, Weekday(year, month, day), hour, minute, second);
 }
 
+bool WioExtRTC::SetDateTime(const tm& tim)
+{
+	return SetDateTime(tim.tm_year + 1900, tim.tm_mon + 1, tim.tm_mday, tim.tm_hour, tim.tm_min, tim.tm_sec);
+}
+
 bool WioExtRTC::GetDateTime(int& year, int& month, int& day, int& hour, int& minute, int& second)
 {
 	int year2digit;
@@ -188,6 +193,39 @@ bool WioExtRTC::GetDateTime(int& year, int& month, int& day, int& hour, int& min
 	{
 		year = (year2digit >= 80 ? 1900 : 2000) + year2digit;
 	}
+
+	return true;
+}
+
+bool WioExtRTC::GetDateTime(tm& tim)
+{
+	int year;
+	int month;
+	int day;
+	int hour;
+	int minute;
+	int second;
+	if (!GetDateTime(year, month, day, hour, minute, second)) return false;
+	if (year == 0)
+	{
+		year = 1970;
+		month = 1;
+		day = 1;
+		hour = 0;
+		minute = 0;
+		second = 0;
+	}
+
+	memset(&tim, 0, sizeof(tim));
+	tim.tm_year = year - 1900;
+	tim.tm_mon = month - 1;
+	tim.tm_mday = day;
+	tim.tm_hour = hour;
+	tim.tm_min = minute;
+	tim.tm_sec = second;
+
+	// Update tm_wday and tm_yday
+	mktime(&tim);
 
 	return true;
 }

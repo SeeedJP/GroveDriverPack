@@ -5,6 +5,7 @@
 #pragma once
 
 #include "../Connector/GroveConnectorI2C.h"
+#include <ctime>
 
 class WioExtRTC
 {
@@ -48,7 +49,9 @@ public:
 
 	bool Init();
 	bool SetDateTime(int year, int month, int day, int hour, int minute, int second);
+	bool SetDateTime(const tm& tim);
 	bool GetDateTime(int& year, int& month, int& day, int& hour, int& minute, int& second);
+	bool GetDateTime(tm& tim);
 	bool IsWakeupReasonPeriod();
 	bool SetWakeupPeriod(int sec);
 	bool Shutdown();
