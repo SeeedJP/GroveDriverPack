@@ -56,6 +56,7 @@ Groveƒ‚ƒWƒ…[ƒ‹‚ÌƒNƒ‰ƒX‚ÆAGrove‘Î‰ƒ{[ƒh‚ÌƒNƒ‰ƒX‚ª—pˆÓ‚³‚ê‚Ä‚¨‚èA‚±‚Ì2‚Â‚ÌƒNƒ
 |<img src="https://statics3.seeedstudio.com/images/product/High%20Temperature%20Sensor.jpg" width="100">|GroveHighTemp|111020002|[Grove - High Temperature Sensor](http://wiki.seeedstudio.com/Grove-High_Temperature_Sensor/)||
 |<img src="https://statics3.seeedstudio.com/seeed/img/2016-11/txvkIZ9IGno10T8UYi8KTvPS.jpg" width="100">|GroveGPS|113020003|[Grove - GPS](http://wiki.seeedstudio.com/Grove-GPS/)||
 |<img src="https://files.seeedstudio.com/wiki/Grove-MP3-V3/img/Grove-MP3-V3-preview.jpg" width="100">|GroveMP3V3|107020069|[Grove - MP3 V3 -Music Player](http://wiki.seeedstudio.com/Grove-MP3-v3/)||
+|<img src="https://github.com/SeeedDocument/Grove-Laser_PM2.5_Sensor-HM3301/raw/master/img/main.jpg" width="100">|GrovePM25HM3301|101020613|[Grove - Laser PM2.5 Air Quality Sensor for Arduino - HM3301](http://wiki.seeedstudio.com/Grove-Laser_PM2.5_Sensor-HM3301/)||
 
 ### Šg’£Šî”Â
 

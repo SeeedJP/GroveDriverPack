@@ -42,6 +42,7 @@
 #include "Module/GroveTempHumiSHT35.h"
 #include "Module/Grove6AxisAccelGyroLSM6DS3.h"
 #include "Module/GroveMP3V3.h"
+#include "Module/GrovePM25HM3301.h"
 
 #if defined ARDUINO_ARCH_STM32F4 || defined ARDUINO_ARCH_STM32
 
