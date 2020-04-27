@@ -18,6 +18,8 @@ Groveƒ‚ƒWƒ…[ƒ‹‚ÌƒNƒ‰ƒX‚ÆAGrove‘Î‰ƒ{[ƒh‚ÌƒNƒ‰ƒX‚ª—pˆÓ‚³‚ê‚Ä‚¨‚èA‚±‚Ì2‚Â‚ÌƒNƒ
   * (Mbed - [Seeed Wio LTE M1/NB1(BG96)](https://os.mbed.com/platforms/Seeed-Wio-BG96/)) © ŠJ”­—\’è
 * [ReButton](https://aka.ms/rebutton)
   * Arduino - SeeedJP ReButton by Seeed K.K.
+* [Wio Terminal](https://wiki.seeedstudio.com/Wio-Terminal-Getting-Started/)
+  * Arduino - Seeed SAMD Boards by Seeed Studio
 
 ### Groveƒ‚ƒWƒ…[ƒ‹
 
@@ -48,7 +50,7 @@ Groveƒ‚ƒWƒ…[ƒ‹‚ÌƒNƒ‰ƒX‚ÆAGrove‘Î‰ƒ{[ƒh‚ÌƒNƒ‰ƒX‚ª—pˆÓ‚³‚ê‚Ä‚¨‚èA‚±‚Ì2‚Â‚ÌƒNƒ
 |<img src="https://statics3.seeedstudio.com/seeed/file/2018-07/bazaar881127_3.jpg" width="100">|GroveRelay|103020005|[Grove - Relay](http://wiki.seeedstudio.com/Grove-Relay/)||
 |<img src="https://statics3.seeedstudio.com/images/product/104020006%201.jpg" width="100">|GroveLEDBar2|104020006|[Grove LED Bar v2.0](http://wiki.seeedstudio.com/Grove-LED_Bar/)||
 |<img src="https://www.seeedstudio.site/media/catalog/product/cache/ef3164306500b1080e8560b2e8b5cc0f/h/t/httpsstatics3.seeedstudio.comseeedfile2018-10bazaar969249_front.jpg" width="100">|GroveLCD1602|104020111,104020112,104020113|[Grove - 16x2 LCD](http://wiki.seeedstudio.com/Grove-16x2_LCD_Series/)|Mbed–¢‘Î‰|
-|<img src="https://statics3.seeedstudio.com/seeed/file/2018-07/bazaar881151_3.jpg" width="100">|Grove4DigitDisplay|104030003|[Grove - 4-Digit Display](http://wiki.seeedstudio.com/Grove-4-Digit_Display/)||
+|<img src="https://statics3.seeedstudio.com/seeed/file/2018-07/bazaar881151_3.jpg" width="100">|Grove4DigitDisplay|104030003|[Grove - 4-Digit Display](http://wiki.seeedstudio.com/Grove-4-Digit_Display/)|Wio Terminal–¢‘Î‰|
 |<img src="https://statics3.seeedstudio.com/seeed/img/2016-09/6hLLXlBnfODAcWlp2wlaep3j.jpg" width="100">|GroveOLEDDisplay096|104030008|[Grove - OLED Display 0.96"](http://wiki.seeedstudio.com/Grove-OLED_Display_0.96inch/)|Mbed–¢‘Î‰|
 |<img src="https://statics3.seeedstudio.com/images/product/Grove%20Circular%20LED.jpg" width="100">|GroveCircularLED|104030013|[Grove - Circular LED](http://wiki.seeedstudio.com/Grove-Circular_LED/)||
 |<img src="https://raw.githubusercontent.com/SeeedDocument/Grove-6-Axis_AccelerometerAndGyroscope/master/img/Grove-6-Axis_AccelerometerAndGyroscope_product_view_1200_s.jpg" width="100">|Grove6AxisAccelGyroLSM6DS3|105020012|[Grove - 6-Axis Accelerometer&Gyroscope](http://wiki.seeedstudio.com/Grove-6-Axis_AccelerometerAndGyroscope/)||

@@ -1,4 +1,4 @@
-#if defined ARDUINO_ARCH_STM32F4 || defined ARDUINO_ARCH_STM32
+#if defined ARDUINO_ARCH_STM32F4 || defined ARDUINO_ARCH_STM32 || defined ARDUINO_ARCH_SAMD
 
 #include "HalI2C.h"
 
@@ -31,4 +31,4 @@ int HalI2C::ReadImplement(int slaveAddress, uint8_t* data, int dataSize)
 	return readSize;
 }
 
-#endif // ARDUINO_ARCH_STM32F4 || ARDUINO_ARCH_STM32
+#endif // ARDUINO_ARCH_STM32F4 || ARDUINO_ARCH_STM32 || ARDUINO_ARCH_SAMD

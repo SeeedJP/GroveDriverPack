@@ -1,3 +1,5 @@
+#if defined ARDUINO_ARCH_STM32F4 || defined ARDUINO_ARCH_STM32 || defined __MBED__
+
 #include "Grove4DigitDisplay.h"
 #include "../HAL/Hal.h"
 
@@ -102,3 +104,5 @@ void Grove4DigitDisplay::print(int value)
 	value /= 10;
 	print(0, value % 10);
 }
+
+#endif // ARDUINO_ARCH_STM32F4 || ARDUINO_ARCH_STM32 || __MBED__

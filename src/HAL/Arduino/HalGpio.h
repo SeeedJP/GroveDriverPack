@@ -25,9 +25,11 @@ protected:
 		case MODE_OUTPUT:
 			pinMode(_Pin, OUTPUT);
 			break;
+#if defined ARDUINO_ARCH_STM32F4 || defined ARDUINO_ARCH_STM32
 		case MODE_OUTPUT_OPEN_DRAIN:
 			pinMode(_Pin, OUTPUT_OPEN_DRAIN);
 			break;
+#endif // ARDUINO_ARCH_STM32F4 || ARDUINO_ARCH_STM32
 		default:
 			abort();
 		}

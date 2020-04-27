@@ -30,7 +30,6 @@
 #include "Module/GroveCircularLED.h"
 #include "Module/GroveEMGDetector.h"
 #include "Module/GroveRelay.h"
-#include "Module/Grove4DigitDisplay.h"
 #include "Module/GroveDigitalLight.h"
 #include "Module/GroveGasO2.h"
 #include "Module/GroveTouch.h"
@@ -44,7 +43,7 @@
 #include "Module/GroveMP3V3.h"
 #include "Module/GrovePM25HM3301.h"
 
-#if defined ARDUINO_ARCH_STM32F4 || defined ARDUINO_ARCH_STM32
+#if defined ARDUINO_ARCH_STM32F4 || defined ARDUINO_ARCH_STM32 || defined ARDUINO_ARCH_SAMD
 
 #include "Module/GroveTempHumiDHT11.h"
 #include "Module/GroveTempHumiDHT22.h"
@@ -52,7 +51,13 @@
 #include "Module/GroveOLEDDisplay096.h"
 #include "Module/GroveLCD1602.h"
 
-#endif // ARDUINO_ARCH_STM32F4 || ARDUINO_ARCH_STM32
+#endif // ARDUINO_ARCH_STM32F4 || ARDUINO_ARCH_STM32 || ARDUINO_ARCH_SAMD
+
+#if defined ARDUINO_ARCH_STM32F4 || defined ARDUINO_ARCH_STM32 || defined __MBED__
+
+#include "Module/Grove4DigitDisplay.h"
+
+#endif // ARDUINO_ARCH_STM32F4 || ARDUINO_ARCH_STM32 || __MBED__
 
 // Extenson
 
@@ -68,4 +73,6 @@
 #include "Board/WIO_LTE_M1NB1_BG96/GroveBoard.h"
 #elif defined ARDUINO_Seeed_ReButton
 #include "Board/Seeed_ReButton/GroveBoard.h"
+#elif defined ARDUINO_WIO_TERMINAL
+#include "Board/WIO_TERMINAL/GroveBoard.h"
 #endif

@@ -7,7 +7,9 @@ public:
 	{
 		MODE_INPUT,
 		MODE_OUTPUT,
+#if defined ARDUINO_ARCH_STM32F4 || defined ARDUINO_ARCH_STM32
 		MODE_OUTPUT_OPEN_DRAIN,
+#endif // ARDUINO_ARCH_STM32F4 || ARDUINO_ARCH_STM32
 	};
 
 private:

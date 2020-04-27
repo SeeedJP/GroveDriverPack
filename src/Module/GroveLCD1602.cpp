@@ -1,4 +1,4 @@
-#if defined ARDUINO_ARCH_STM32F4 || defined ARDUINO_ARCH_STM32
+#if defined ARDUINO_ARCH_STM32F4 || defined ARDUINO_ARCH_STM32 || ARDUINO_ARCH_SAMD
 
 #include "GroveLCD1602.h"
 #include "../HAL/Hal.h"
@@ -83,4 +83,4 @@ size_t GroveLCD1602::write(uint8_t val)
 	return 1;
 }
 
-#endif // ARDUINO_ARCH_STM32F4 || ARDUINO_ARCH_STM32
+#endif // ARDUINO_ARCH_STM32F4 || ARDUINO_ARCH_STM32 || ARDUINO_ARCH_SAMD
