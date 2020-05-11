@@ -9,7 +9,11 @@ public:
 
 	static void DelayMs(uint32_t milliSeconds)
 	{
+#ifdef THIS_THREAD_H
 		ThisThread::sleep_for(milliSeconds);
+#else
+		wait_ms(milliSeconds);
+#endif // THIS_THREAD_H
 	}
 
 	static void DelayUs(uint32_t microSeconds)
