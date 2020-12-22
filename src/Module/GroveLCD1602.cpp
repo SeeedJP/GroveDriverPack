@@ -1,4 +1,4 @@
-#if defined ARDUINO_ARCH_STM32F4 || defined ARDUINO_ARCH_STM32 || ARDUINO_ARCH_SAMD
+#if defined ARDUINO_ARCH_STM32F4 || defined ARDUINO_ARCH_STM32 || defined ARDUINO_ARCH_SAMD
 
 #include "GroveLCD1602.h"
 #include "../HAL/Hal.h"

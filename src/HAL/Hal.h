@@ -1,6 +1,6 @@
 #pragma once
 
-#if defined ARDUINO_ARCH_STM32F4 || defined ARDUINO_ARCH_STM32 || ARDUINO_ARCH_SAMD
+#if defined ARDUINO_ARCH_STM32F4 || defined ARDUINO_ARCH_STM32 || defined ARDUINO_ARCH_SAMD
 
 #define HalPlatformPinType	int
 #define HalPlatformUartType	HardwareSerial
