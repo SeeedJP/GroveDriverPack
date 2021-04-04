@@ -43,6 +43,7 @@
 #include "Module/GroveMP3V3.h"
 #include "Module/GrovePM25HM3301.h"
 #include "Module/GroveSCD30.h"
+#include "Module/GrovePIR.h"
 
 #if defined ARDUINO_ARCH_STM32F4 || defined ARDUINO_ARCH_STM32 || defined ARDUINO_ARCH_SAMD
 
