@@ -26,9 +26,9 @@ public:
 		D6(WIO_A6, WIO_A7),
 		A4(WIO_A4, WIO_A5),
 		D4(WIO_A4, WIO_A5),
-		UART(&SerialUART),
+		UART(&Serial),
 		D23(WIO_UART_D23, WIO_UART_D22),
-		I2C(&WireI2C), D24(WIO_I2C_D24, WIO_I2C_D25)
+		I2C(&Wire), D24(WIO_I2C_D24, WIO_I2C_D25)
 	{
 	}
 
