@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../HalUARTBase.h"
 #include <Arduino.h>
+#include "../HalUARTBase.h"
 
 class HalUART : public HalUARTBase
 {

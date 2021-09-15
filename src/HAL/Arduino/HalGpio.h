@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../HalGpioBase.h"
 #include <Arduino.h>
+#include "../HalGpioBase.h"
 
 class HalGpio : public HalGpioBase
 {

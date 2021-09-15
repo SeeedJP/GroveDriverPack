@@ -1,5 +1,10 @@
 #pragma once
 
+#if defined MODE_INPUT
+#undef MODE_INPUT
+#undef MODE_OUTPUT
+#endif
+
 class HalGpioBase
 {
 public:
