@@ -153,8 +153,27 @@ bool WioExtRTC::HwGetDateTime(int& year2digit, int& month, int& day, int& weekda
 		return true;
 	}
 
+#if defined TARGET_GD32F4XX
+	uint8_t data[7];
+	uint8_t data2[7];
+	for (int i = 0; i < sizeof(data); ++i)
+	{
+		if (_Device->ReadReg8(PCF8523_SECONDS + i, &data[i]) != 1) return false;
+	}
+	while (true)
+	{
+		for (int i = 0; i < sizeof(data2); ++i)
+		{
+			if (_Device->ReadReg8(PCF8523_SECONDS + i, &data2[i]) != 1) return false;
+		}
+		if (memcmp(data, data2, sizeof(data)) == 0) break;
+
+		memcpy(data, data2, sizeof(data));
+	}
+#else
 	uint8_t data[7];
 	if (_Device->ReadRegN(PCF8523_SECONDS, data, sizeof(data)) != sizeof(data)) return false;
+#endif
 
 	second = DecodeBCD(data[0] & 0x7f);
 	minute = DecodeBCD(data[1] & 0x7f);
