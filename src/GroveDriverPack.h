@@ -45,7 +45,7 @@
 #include "Module/GroveSCD30.h"
 #include "Module/GrovePIR.h"
 
-#if defined ARDUINO_ARCH_STM32F4 || defined ARDUINO_ARCH_STM32 || defined ARDUINO_ARCH_SAMD
+#if defined ARDUINO_ARCH_STM32F4 || defined ARDUINO_ARCH_STM32 || defined ARDUINO_ARCH_SAMD || defined ARDUINO_ARCH_ESP32
 
 #include "Module/GroveTempHumiDHT11.h"
 #include "Module/GroveTempHumiDHT22.h"
@@ -53,7 +53,7 @@
 #include "Module/GroveOLEDDisplay096.h"
 #include "Module/GroveLCD1602.h"
 
-#endif // ARDUINO_ARCH_STM32F4 || ARDUINO_ARCH_STM32 || ARDUINO_ARCH_SAMD
+#endif // ARDUINO_ARCH_STM32F4 || ARDUINO_ARCH_STM32 || ARDUINO_ARCH_SAMD || defined ARDUINO_ARCH_ESP32
 
 #if defined ARDUINO_ARCH_STM32F4 || defined ARDUINO_ARCH_STM32 || defined __MBED__
 
