@@ -26,6 +26,10 @@ unsigned long GroveUltrasonicRanger::PulseIn(bool state, unsigned long timeout)
 
 void GroveUltrasonicRanger::Init()
 {
+#if defined ARDUINO_ARCH_NRF52
+	dwt_enable();	// https://github.com/SeeedJP/wio_cellular/issues/58
+#endif // ARDUINO_ARCH_NRF52
+
 	_Pin->Enable(HalGpio::MODE_INPUT);
 }
 

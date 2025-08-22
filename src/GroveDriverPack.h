@@ -45,20 +45,22 @@
 #include "Module/GroveSCD30.h"
 #include "Module/GrovePIR.h"
 
-#if defined ARDUINO_ARCH_STM32F4 || defined ARDUINO_ARCH_STM32 || defined ARDUINO_ARCH_SAMD
-
+// Depends on the micros() function
+#if defined ARDUINO_ARCH_STM32F4 || defined ARDUINO_ARCH_STM32 || defined ARDUINO_ARCH_SAMD || ARDUINO_ARCH_NRF52
 #include "Module/GroveTempHumiDHT11.h"
 #include "Module/GroveTempHumiDHT22.h"
 #include "Module/GroveUltrasonicRanger.h"
+#endif // ARDUINO_ARCH_STM32F4 || ARDUINO_ARCH_STM32 || ARDUINO_ARCH_SAMD || ARDUINO_ARCH_NRF52
+
+// Depends on the Print class
+#if defined ARDUINO_ARCH_STM32F4 || defined ARDUINO_ARCH_STM32 || defined ARDUINO_ARCH_SAMD
 #include "Module/GroveOLEDDisplay096.h"
 #include "Module/GroveLCD1602.h"
-
 #endif // ARDUINO_ARCH_STM32F4 || ARDUINO_ARCH_STM32 || ARDUINO_ARCH_SAMD
 
+// Requires the MODE_OUTPUT_OPEN_DRAIN feature
 #if defined ARDUINO_ARCH_STM32F4 || defined ARDUINO_ARCH_STM32 || defined __MBED__
-
 #include "Module/Grove4DigitDisplay.h"
-
 #endif // ARDUINO_ARCH_STM32F4 || ARDUINO_ARCH_STM32 || __MBED__
 
 // Extenson

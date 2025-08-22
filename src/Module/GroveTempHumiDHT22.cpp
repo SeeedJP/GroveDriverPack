@@ -3,6 +3,10 @@
 
 void GroveTempHumiDHT22::DHT22Init(HalGpio* gpio)
 {
+#if defined ARDUINO_ARCH_NRF52
+	dwt_enable();	// https://github.com/SeeedJP/wio_cellular/issues/58
+#endif // ARDUINO_ARCH_NRF52
+
 	gpio->Enable(HalGpio::MODE_OUTPUT);
 	gpio->Write(true);
 }
